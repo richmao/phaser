@@ -1,25 +1,20 @@
-var game = new Phaser.Game(800, 480, Phaser.AUTO);
+var game = new Phaser.Game(800, 600, Phaser.AUTO);
 
 var Game = function(game){};
 Game.prototype = {
 	preload: function(){
-		//load assets for game
-
+		//load assets
+		game.load.image('background', 'assets/img/background.png');
+		game.load.atlas('atlas', 'assets/img/spritesheet.png', 'assets/img/sprites.json')
 	},
 	create: function(){
-
-		this.game.physics.startSystem(Phaser.Physics.ARCADE);
-
-		this.background = game.add.tileSprite(0, 0, 800, 480, 'background'); //add scrolling background
+		this.background = game.add.sprite(0, 0, 'background');
+		for(var x = 0; x < 50; x++) {
+			armada = new Armada(game, 'atlas', 'spaceship');
+			game.add.existing(armada);
+		}
 	},
 	update: function(){
-		//adjust every star's rotation and position
-		this.stars.forEach(function(star) {
-			star.x -= speed;
-			star.angle += 1;
-			if (star.x < -50)
-				star.kill(); //if it exits screen, delete it
-		}, this);
 	}
 }
 
